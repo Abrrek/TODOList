@@ -1,0 +1,69 @@
+.left
+	width: 199px
+	height: 100vh
+	background-color: #E5E5E5
+	padding-left: 20px
+	padding-top: 58px
+	font-family: $robo
+	&__header
+		display: flex
+		align-items: center
+		margin-bottom: 30px
+		border-radius: 4px
+		width: 160px
+		height: 37px
+		&:hover
+			background-color: #fff
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05)
+			transition: $animation-speed linear
+		&-text
+			font-size: 14px
+			letter-spacing: 0.2px
+		&-icon
+			margin-right: 8px
+			margin-left: 10px
+	&__folder
+		position: relative
+		display: flex
+		align-items: center
+		width: 160px
+		height: 37px
+		border-radius: 4px
+		&:hover
+			background-color: #fff
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05)
+			transition: $animation-speed linear
+		&-circle
+			display: block
+			width: 10px
+			height: 10px
+			background-color: #000
+			border-radius: 50%
+			margin-right: 10px
+			margin-left: 12px
+		&-text
+			font-size: 14px
+			letter-spacing: 0.15px
+		&-delete
+			position: absolute
+			right: 13px
+			cursor: pointer
+	&__create
+		display: flex
+		align-items: center
+		width: 170px
+		height: 37px
+		margin-top: 40px
+		border-radius: 4px
+		transition: $animation-speed linear
+		&:hover
+			background-color: #fff
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05)
+			transition: $animation-speed linear
+		&-icon
+			margin-left: 10px
+			margin-right: 10px
+		&-text
+			font-size: 14px
+			color: #767676
+			letter-spacing: 0.15px

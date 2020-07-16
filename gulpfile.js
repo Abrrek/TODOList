@@ -1,12 +1,12 @@
-const {src, dest, watch, series} = require('gulp');
-const browserSync = require('browser-sync').create();
-const cleanCSS = require('gulp-clean-css');
-const rename = require('gulp-rename');
-const  minify  =  require ('gulp-minify');
-const  filter  =  require ('gulp-filter');
-const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const htmlmin = require('gulp-htmlmin');
+'use script';
+
+var {src, dest, watch, series} = require('gulp');
+var browserSync = require('browser-sync').create();
+var cleanCSS = require('gulp-clean-css');
+var  minify  =  require ('gulp-minify');
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var htmlmin = require('gulp-htmlmin');
 var tinypng = require('gulp-tinypng-compress');
 
 function bs() {
@@ -22,8 +22,8 @@ function bs() {
 	watch("./*.html").on('change', browserSync.reload);
 	watch("./sass/**/*.sass", serveSass);
 	watch("./sass/**/*.scss", serveSass);
-	watch("js/main.js").on('change', browserSync.reload);
-};
+	watch("js/**/*.js").on('change', browserSync.reload);
+}
 
 function css(done) {
 	src('css/**/**.css')
@@ -79,7 +79,7 @@ function serveSass() {
     .pipe(sass())
 		.pipe(dest('./css'))
 		.pipe(browserSync.stream());
-};
+}
 
 
 exports.serve = bs;
