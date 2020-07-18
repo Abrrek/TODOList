@@ -19,7 +19,8 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  outline: none; }
 
 .container {
   display: flex; }
@@ -28,8 +29,27 @@
   width: 15px;
   height: 15px; }
 
+button:active {
+  transform: scale(0.97); }
+
+@keyframes jelly {
+  from {
+    transform: scale(1, 1); }
+  30% {
+    transform: scale(1.25, 0.75); }
+  40% {
+    transform: scale(0.75, 1.25); }
+  50% {
+    transform: scale(1.15, 0.85); }
+  65% {
+    transform: scale(0.95, 1.05); }
+  75% {
+    transform: scale(1.05, 0.95); }
+  to {
+    transform: scale(1, 1); } }
+
 .left {
-  width: 199px;
+  width: 280px;
   height: 100vh;
   background-color: #E5E5E5;
   padding-left: 20px;
@@ -56,13 +76,16 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 160px;
+    width: 210px;
     height: 37px;
     border-radius: 4px; }
     .left__folder:hover {
       background-color: #fff;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
       transition: 0.1s linear; }
+    .left__folder:hover .left__folder-transform {
+      visibility: visible;
+      opacity: 1; }
     .left__folder-circle {
       display: block;
       width: 10px;
@@ -74,10 +97,66 @@
     .left__folder-text {
       font-size: 14px;
       letter-spacing: 0.15px; }
-    .left__folder-delete {
+    .left__folder-transform {
+      visibility: hidden;
+      opacity: 0;
+      display: flex;
+      justify-content: space-between;
       position: absolute;
-      right: 13px;
+      right: 10px;
+      width: 60px;
+      height: 28px;
+      min-width: 20px;
+      transition: all 0.3s; }
+    .left__folder-delete, .left__folder-edit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 26px;
+      width: 26px;
       cursor: pointer; }
+      .left__folder-delete:hover .right__task-edit-icon-box, .left__folder-edit:hover .right__task-edit-icon-box {
+        background-color: #dddddd; }
+      .left__folder-delete:hover .right__task-delete-icon-box, .left__folder-edit:hover .right__task-delete-icon-box {
+        background-color: #dddddd; }
+      .left__folder-delete-icon, .left__folder-edit-icon {
+        fill: #666666;
+        position: absolute;
+        width: 14px;
+        height: 14px; }
+        .left__folder-delete-icon-box, .left__folder-edit-icon-box {
+          position: absolute;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #E5E5E5;
+          border: 1px solid tomato;
+          width: 26px;
+          height: 26px;
+          border-radius: 100%;
+          transition: all 0.1s; }
+        .left__folder-delete-icon:active + .right__task-delete-svg, .left__folder-edit-icon:active + .right__task-delete-svg {
+          stroke-dasharray: 163;
+          stroke-dashoffset: 0; }
+      .left__folder-delete-svg, .left__folder-edit-svg {
+        z-index: 2;
+        stroke: tomato;
+        stroke-width: 4;
+        fill: transparent;
+        position: absolute;
+        stroke-dasharray: 163;
+        stroke-dashoffset: 163;
+        transition: stroke-dashoffset 0.5s linear; }
+        .left__folder-delete-svg:active, .left__folder-edit-svg:active {
+          stroke-dasharray: 163;
+          stroke-dashoffset: 0; }
+    .left__folder-edit-svg {
+      stroke: #4DD599; }
+    .left__folder-edit-icon {
+      fill: #999999; }
+      .left__folder-edit-icon-box {
+        border: 1px solid #4DD599; }
   .left__create {
     display: flex;
     align-items: center;
@@ -97,6 +176,98 @@
       font-size: 14px;
       color: #767676;
       letter-spacing: 0.15px; }
+  .left__creating {
+    position: absolute;
+    width: 235px;
+    height: 148px;
+    border-radius: 10px;
+    background-color: #fff;
+    font-family: "Lato", sans-serif;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05); }
+    .left__creating-box {
+      position: relative;
+      width: 85%;
+      margin: auto;
+      padding-top: 18px; }
+    .left__creating-input {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #E5E5E5;
+      border-radius: 4px;
+      padding-left: 11px; }
+      .left__creating-input::placeholder {
+        color: #767676;
+        font-size: 14px;
+        letter-spacing: 0.15px; }
+      .left__creating-input:focus + .left__creating-after {
+        width: 100%; }
+      .left__creating-input:focus {
+        border-bottom: none;
+        border-bottom-radius: 0; }
+    .left__creating-after {
+      position: absolute;
+      height: 2px;
+      width: 0;
+      margin-top: -2px;
+      z-index: 5;
+      background-color: #4DD599;
+      transition: width 0.3s linear; }
+    .left__creating-colors {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 13px; }
+    .left__creating-radio {
+      position: relative;
+      top: 1px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #E5E5E5;
+      border-radius: 100%;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #4DD599; }
+    .left__creating-color {
+      display: none; }
+      .left__creating-color:checked + .left__creating-radio {
+        border-color: #666666;
+        animation: jelly 0.5s ease forwards; }
+    .left__creating-button {
+      width: 100%;
+      height: 37px;
+      background-color: #4DD599;
+      border: none;
+      border-radius: 4px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      letter-spacing: 0.15px;
+      margin-top: 22px;
+      cursor: pointer; }
+      .left__creating-button:hover {
+        background-color: #2ec180; }
+    .left__creating-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #999999;
+      border-radius: 10px;
+      top: -10px;
+      right: -10px;
+      cursor: pointer; }
+      .left__creating-close::before, .left__creating-close::after {
+        position: absolute;
+        content: '';
+        display: block;
+        height: 2px;
+        width: 12px;
+        background-color: black; }
+      .left__creating-close::before {
+        transform: rotate(45deg); }
+      .left__creating-close::after {
+        transform: rotate(-45deg); }
 
 .right {
   height: 100vh;
@@ -116,62 +287,173 @@
   .right__tasks {
     font-family: "Lato", sans-serif;
     width: 80%;
-    border-top: 1px solid #F2F2F2;
+    border-top: 1px solid #E5E5E5;
     padding-top: 20px; }
   .right__task {
     display: flex;
     align-items: center;
     position: relative;
     height: 40px;
-    border-radius: 20px;
-    margin-bottom: 10px;
+    border-radius: 5px;
     transition: 0.1s linear; }
     .right__task:hover {
-      background-color: #f5f5f5; }
-    .right__task-radio {
-      display: block;
+      background-color: #f2f2f2; }
+    .right__task:hover .right__task-transform {
+      visibility: visible;
+      opacity: 1; }
+    .right__task-label {
+      display: flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer; }
+      .right__task-label input:checked + .right__task-checkbox {
+        border-color: #4DD599; }
+        .right__task-label input:checked + .right__task-checkbox svg path {
+          fill: #4DD599; }
+        .right__task-label input:checked + .right__task-checkbox svg polyline {
+          stroke-dashoffset: 0; }
+      .right__task-label:hover .right__task-checkbox svg path {
+        stroke-dashoffset: 0; }
+    .right__task-checkbox {
+      position: relative;
+      top: 2px;
+      float: left;
+      margin: 0 10px 5px 15px;
       width: 20px;
       height: 20px;
-      border: 2px solid #E8E8E8;
-      border-radius: 50%;
-      margin-right: 20px;
-      margin-left: 10px; }
+      border: 2px solid #E5E5E5;
+      border-radius: 3px; }
+      .right__task-checkbox svg {
+        position: absolute;
+        top: -2px;
+        left: -2px; }
+        .right__task-checkbox svg path {
+          fill: none;
+          stroke: #4DD599;
+          stroke-width: 2;
+          stroke-dasharray: 71px;
+          stroke-dashoffset: 71px;
+          transition: 0.3s linear; }
+        .right__task-checkbox svg polyline {
+          fill: none;
+          stroke: #FFF;
+          stroke-width: 2;
+          stroke-dasharray: 18px;
+          stroke-dashoffset: 18px;
+          transition: 0.3s linear; }
+    .right__task-hidden-input {
+      display: none; }
     .right__task-text {
-      font-size: 16px; }
-    .right__task-delete {
+      display: inline;
+      font-size: 16px;
+      line-height: 16px; }
+    .right__task-transform {
+      visibility: hidden;
+      opacity: 0;
+      display: flex;
+      justify-content: space-between;
       position: absolute;
       right: 18px;
+      width: 60px;
+      margin-right: 20px;
+      height: 28px;
+      min-width: 20px;
+      transition: all 0.3s; }
+    .right__task-delete, .right__task-edit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 26px;
+      width: 26px;
       cursor: pointer; }
+      .right__task-delete:hover .right__task-edit-icon-box, .right__task-edit:hover .right__task-edit-icon-box {
+        background-color: #dddddd; }
+      .right__task-delete:hover .right__task-delete-icon-box, .right__task-edit:hover .right__task-delete-icon-box {
+        background-color: #dddddd; }
+      .right__task-delete-icon, .right__task-edit-icon {
+        fill: #666666;
+        position: absolute;
+        width: 14px;
+        height: 14px; }
+        .right__task-delete-icon-box, .right__task-edit-icon-box {
+          position: absolute;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #E5E5E5;
+          border: 1px solid tomato;
+          width: 26px;
+          height: 26px;
+          border-radius: 100%;
+          transition: all 0.1s; }
+        .right__task-delete-icon:active + .right__task-delete-svg, .right__task-edit-icon:active + .right__task-delete-svg {
+          stroke-dasharray: 163;
+          stroke-dashoffset: 0; }
+      .right__task-delete-svg, .right__task-edit-svg {
+        z-index: 2;
+        stroke: tomato;
+        stroke-width: 4;
+        fill: transparent;
+        position: absolute;
+        stroke-dasharray: 163;
+        stroke-dashoffset: 163;
+        transition: stroke-dashoffset 0.5s linear; }
+        .right__task-delete-svg:active, .right__task-edit-svg:active {
+          stroke-dasharray: 163;
+          stroke-dashoffset: 0; }
+    .right__task-edit-svg {
+      stroke: #4DD599; }
+    .right__task-edit-icon {
+      fill: #999999; }
+      .right__task-edit-icon-box {
+        border: 1px solid #4DD599; }
   .right__create {
-    font-family: "Lato", sans-serif; }
+    font-family: "Lato", sans-serif;
+    width: 415px; }
+    .right__create-form {
+      position: relative; }
     .right__create-button {
       display: flex;
       align-items: center;
       height: 40px;
       width: 200px;
       margin-top: 20px;
-      border-radius: 20px;
+      border-radius: 5px;
       transition: 0.1s linear; }
       .right__create-button:hover {
-        background-color: #f5f5f5; }
+        background-color: #f2f2f2; }
     .right__create-icon {
       margin-left: 15px;
       margin-right: 10px; }
     .right__create-text {
-      color: #b4b4b4;
+      color: #767676;
       font-size: 16px;
       letter-spacing: 0.15px;
       line-height: 16px; }
     .right__create-input {
-      width: 415px;
+      width: 100%;
       height: 38px;
       padding-left: 14px;
-      border: 2px solid #efefef;
+      border: 1px solid #E5E5E5;
       border-radius: 4px; }
       .right__create-input::placeholder {
-        color: #c7c7c7;
+        color: #767676;
         font-size: 14px;
         letter-spacing: 0.15px; }
+      .right__create-input:focus + .right__create-after {
+        width: 100%; }
+      .right__create-input:focus {
+        border-bottom: none;
+        border-bottom-radius: 0; }
+    .right__create-after {
+      position: absolute;
+      height: 2px;
+      width: 0;
+      margin-top: -2px;
+      z-index: 5;
+      background-color: #4DD599;
+      transition: width 0.3s linear; }
     .right__create-buttons {
       margin-top: 16px; }
     .right__create-add {
@@ -183,13 +465,21 @@
       border-radius: 4px;
       color: #ffffff;
       font-size: 14px;
-      font-family: inherit; }
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.1s linear; }
+      .right__create-add:hover {
+        background-color: #2ec180; }
     .right__create-cancel {
       width: 90px;
       height: 34px;
-      background-color: #f4f6f8;
+      background-color: #E5E5E5;
       border: none;
       border-radius: 4px;
-      color: #9c9c9c;
+      color: #767676;
       font-size: 14px;
-      letter-spacing: 0.15px; }
+      letter-spacing: 0.15px;
+      cursor: pointer;
+      transition: 0.1s linear; }
+      .right__create-cancel:hover {
+        background-color: #cccccc; }

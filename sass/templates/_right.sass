@@ -16,80 +16,204 @@
 	&__tasks
 		font-family: $lato
 		width: 80%
-		border-top: 1px solid #F2F2F2
+		border-top: 1px solid $secondary
 		padding-top: 20px
 	&__task
 		display: flex
 		align-items: center
 		position: relative
 		height: 40px
-		border-radius: 20px
-		margin-bottom: 10px
+		border-radius: 5px
 		transition: $animation-speed linear
 		&:hover
-			background-color: #f5f5f5
-		&-radio
-			display: block
+			background-color: lighten($secondary, $blackout / 2)
+		&:hover .right__task-transform
+			visibility: visible
+			opacity: 1
+		&-label
+			display: flex
+			align-items: center
+			user-select: none
+			cursor: pointer
+			input:checked + .right__task-checkbox
+				border-color: $contrast-1
+				svg
+					path
+						fill: $contrast-1
+					polyline
+						stroke-dashoffset: 0
+			&:hover
+				.right__task-checkbox svg path
+					stroke-dashoffset: 0
+		&-checkbox
+			position: relative
+			top: 2px
+			float: left
+			margin: 0 10px 5px 15px
 			width: 20px
 			height: 20px
-			border: 2px solid #E8E8E8
-			border-radius: 50%
-			margin-right: 20px
-			margin-left: 10px
+			border: 2px solid $secondary
+			border-radius: 3px
+			svg
+				position: absolute
+				top: -2px
+				left: -2px
+				path
+					fill: none
+					stroke: $contrast-1
+					stroke-width: 2
+					stroke-dasharray: 71px
+					stroke-dashoffset: 71px
+					transition: $animation-speed * 3 linear
+				polyline
+					fill: none
+					stroke: #FFF
+					stroke-width: 2
+					stroke-dasharray: 18px
+					stroke-dashoffset: 18px
+					transition: $animation-speed * 3 linear
+		&-hidden-input
+			display: none
 		&-text
+			display: inline
 			font-size: 16px
-		&-delete
+			line-height: 16px
+		&-transform
+			visibility: hidden
+			opacity: 0
+			display: flex
+			justify-content: space-between
 			position: absolute
 			right: 18px
+			width: 60px
+			margin-right: 20px
+			height: 28px
+			min-width: 20px
+			transition: all $animation-speed * 3
+		&-delete, &-edit
+			display: flex
+			justify-content: center
+			align-items: center
+			height: 26px
+			width: 26px
 			cursor: pointer
+			&:hover .right__task-edit-icon-box
+				background-color: darken($secondary, $blackout / 3)
+			&:hover .right__task-delete-icon-box
+				background-color: darken($secondary, $blackout / 3)
+			&-icon
+				fill:	darken($secondary, $blackout * 5)
+				position: absolute
+				width: 14px
+				height: 14px
+				&-box
+					position: absolute
+					z-index: 1
+					display: flex
+					align-items: center
+					justify-content: center
+					background-color: $secondary
+					border: 1px solid $contrast-2
+					width: 26px
+					height: 26px
+					border-radius: 100%
+					transition: all $animation-speed
+				&:active + .right__task-delete-svg
+					stroke-dasharray: 163
+					stroke-dashoffset: 0
+			&-svg
+				z-index: 2
+				stroke: $contrast-2
+				stroke-width: 4
+				fill: transparent
+				position: absolute
+				stroke-dasharray: 163
+				stroke-dashoffset: 163
+				transition: stroke-dashoffset $animation-speed * 5 linear
+				&:active
+					stroke-dasharray: 163
+					stroke-dashoffset: 0
+		&-edit
+			&-svg
+				stroke: $contrast-1
+			&-icon
+				fill: darken($secondary, $blackout * 3)
+				&-box
+					border: 1px solid $contrast-1
+
 	&__create
 		font-family: $lato
+		width: 415px
+		&-form
+			position: relative
 		&-button 
 			display: flex
 			align-items: center
 			height: 40px
 			width: 200px
 			margin-top: 20px
-			border-radius: 20px
+			border-radius: 5px
 			transition: $animation-speed linear
 			&:hover
-				background-color: #f5f5f5
+				background-color: lighten($secondary, $blackout / 2)
 		&-icon
 			margin-left: 15px
 			margin-right: 10px
 		&-text
-			color: #b4b4b4
+			color: $textsecondary
 			font-size: 16px
 			letter-spacing: 0.15px
 			line-height: 16px
 		&-input
-			width: 415px
+			width: 100%
 			height: 38px
 			padding-left: 14px
-			border: 2px solid #efefef
+			border: 1px solid $secondary
 			border-radius: 4px
 			&::placeholder
-				color: #c7c7c7
+				color: $textsecondary
 				font-size: 14px
 				letter-spacing: 0.15px
+			&:focus + .right__create-after
+				width: 100%
+			&:focus
+				border-bottom: none
+				border-bottom-radius: 0
+		&-after
+			position: absolute
+			height: 2px
+			width: 0
+			margin-top: -2px
+			z-index: 5
+			background-color: $contrast-1
+			transition: width $animation-speed * 3 linear
+
 		&-buttons
 			margin-top: 16px
 		&-add
 			width: 145px
 			height: 34px
 			margin-right: 9px
-			background-color: $contrast
+			background-color: $contrast-1
 			border: none
 			border-radius: 4px
 			color: #ffffff
 			font-size: 14px
 			font-family: inherit
+			cursor: pointer
+			transition: $animation-speed linear
+			&:hover
+				background-color: darken($contrast-1, $blackout)
 		&-cancel
 			width: 90px
 			height: 34px
-			background-color: #f4f6f8
+			background-color: $secondary
 			border: none
 			border-radius: 4px
-			color: #9c9c9c
+			color: $textsecondary
 			font-size: 14px
 			letter-spacing: 0.15px
+			cursor: pointer
+			transition: $animation-speed linear
+			&:hover
+				background-color: darken($secondary, $blackout)

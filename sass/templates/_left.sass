@@ -1,7 +1,7 @@
 .left
-	width: 199px
+	width: 280px
 	height: 100vh
-	background-color: #E5E5E5
+	background-color: $secondary
 	padding-left: 20px
 	padding-top: 58px
 	font-family: $robo
@@ -26,13 +26,16 @@
 		position: relative
 		display: flex
 		align-items: center
-		width: 160px
+		width: 210px
 		height: 37px
 		border-radius: 4px
 		&:hover
 			background-color: #fff
 			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05)
 			transition: $animation-speed linear
+		&:hover .left__folder-transform
+			visibility: visible
+			opacity: 1
 		&-circle
 			display: block
 			width: 10px
@@ -44,10 +47,67 @@
 		&-text
 			font-size: 14px
 			letter-spacing: 0.15px
-		&-delete
+		&-transform
+			visibility: hidden
+			opacity: 0
+			display: flex
+			justify-content: space-between
 			position: absolute
-			right: 13px
+			right: 10px
+			width: 60px
+			height: 28px
+			min-width: 20px
+			transition: all $animation-speed * 3
+		&-delete, &-edit
+			display: flex
+			justify-content: center
+			align-items: center
+			height: 26px
+			width: 26px
 			cursor: pointer
+			&:hover .right__task-edit-icon-box
+				background-color: darken($secondary, $blackout / 3)
+			&:hover .right__task-delete-icon-box
+				background-color: darken($secondary, $blackout / 3)
+			&-icon
+				fill:	darken($secondary, $blackout * 5)
+				position: absolute
+				width: 14px
+				height: 14px
+				&-box
+					position: absolute
+					z-index: 1
+					display: flex
+					align-items: center
+					justify-content: center
+					background-color: $secondary
+					border: 1px solid $contrast-2
+					width: 26px
+					height: 26px
+					border-radius: 100%
+					transition: all $animation-speed
+				&:active + .right__task-delete-svg
+					stroke-dasharray: 163
+					stroke-dashoffset: 0
+			&-svg
+				z-index: 2
+				stroke: $contrast-2
+				stroke-width: 4
+				fill: transparent
+				position: absolute
+				stroke-dasharray: 163
+				stroke-dashoffset: 163
+				transition: stroke-dashoffset $animation-speed * 5 linear
+				&:active
+					stroke-dasharray: 163
+					stroke-dashoffset: 0
+		&-edit
+			&-svg
+				stroke: $contrast-1
+			&-icon
+				fill: darken($secondary, $blackout * 3)
+				&-box
+					border: 1px solid $contrast-1
 	&__create
 		display: flex
 		align-items: center
@@ -65,5 +125,98 @@
 			margin-right: 10px
 		&-text
 			font-size: 14px
-			color: #767676
+			color: $textsecondary
 			letter-spacing: 0.15px
+	&__creating
+		// display: none
+		position: absolute
+		width: 235px
+		height: 148px
+		border-radius: 10px
+		background-color: #fff
+		font-family: $lato
+		box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05)
+		&-box
+			position: relative
+			width: 85%
+			margin: auto
+			padding-top: 18px
+		&-input
+			width: 100%
+			height: 32px
+			border: 1px solid $secondary
+			border-radius: 4px
+			padding-left: 11px
+			&::placeholder
+				color: $textsecondary
+				font-size: 14px
+				letter-spacing: 0.15px
+			&:focus + .left__creating-after
+				width: 100%
+			&:focus
+				border-bottom: none
+				border-bottom-radius: 0
+		&-after
+			position: absolute
+			height: 2px
+			width: 0
+			margin-top: -2px
+			z-index: 5
+			background-color: $contrast-1
+			transition: width $animation-speed * 3 linear
+		&-colors
+			display: flex
+			justify-content: space-around
+			margin-top: 13px
+		&-radio
+			position: relative
+			top: 1px
+			width: 20px
+			height: 20px
+			border: 1px solid $secondary
+			border-radius: 100%
+			vertical-align: middle
+			cursor: pointer
+			background-color: $contrast-1
+		&-color
+			display: none
+			&:checked + .left__creating-radio
+				border-color: darken($secondary, $blackout * 5)
+				animation: jelly $animation-speed * 5 ease forwards
+		&-button
+			width: 100%
+			height: 37px
+			background-color: $contrast-1
+			border: none
+			border-radius: 4px
+			color: #ffffff
+			font-family: inherit
+			font-size: 14px
+			letter-spacing: 0.15px
+			margin-top: 22px
+			cursor: pointer
+			&:hover
+				background-color: darken($contrast-1, $blackout)
+		&-close
+			display: flex
+			align-items: center
+			justify-content: center
+			position: absolute
+			width: 20px
+			height: 20px
+			background-color: darken($secondary, $blackout * 3)
+			border-radius: 10px
+			top: -10px
+			right: -10px
+			cursor: pointer
+			&::before, &::after
+				position: absolute
+				content: ''
+				display: block
+				height: 2px
+				width: 12px
+				background-color: darken($secondary, $blackout * 9)
+			&::before
+				transform: rotate(45deg)
+			&::after
+				transform: rotate(-45deg)
