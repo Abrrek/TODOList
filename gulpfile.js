@@ -48,7 +48,7 @@ function css(done) {
 }
 
 function html(done) {
-	src('**.html').pipe(htmlmin({ collapseWhitespace: true})).pipe(dest('dist/'))
+	src('**.html').pipe(htmlmin({ collapseWhitespace: true})).pipe(dest('dist/'));
 	done();
 }
 
@@ -59,7 +59,7 @@ function php(done) {
 }
 
 function fonts(done) {
-	src('fonts/**/**').pipe(dest('dist/fonts'))
+	src('fonts/**/**').pipe(dest('dist/fonts'));
 		done();
 	}
 
