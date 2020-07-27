@@ -1,11 +1,16 @@
 .right
 	height: 100vh
 	width: 100%
+	margin-left: 270px
 	padding-left: 55px
-	padding-top: 56px
 	&__header
 		display: flex
 		align-items: center
+		width: 80%
+		height: 60px
+		padding-top: 56px
+		padding-bottom: 20px
+		border-bottom: 1px solid $secondary
 		&-text
 			font-family: $mont
 			font-size: 32px
@@ -14,18 +19,23 @@
 		&-icon
 			margin-top: -17px
 	&__tasks
-		position: relative
 		font-family: $lato
 		width: 80%
-		border-top: 1px solid $secondary
-		padding-top: 20px
+		margin-top: 20px
+		border-bottom: 1px solid $secondary
+		padding-bottom: 10px
 	&__task
 		display: flex
 		align-items: center
 		position: relative
-		height: 40px
+		min-height: 40px
 		border-radius: 5px
-		transition: $animation-speed linear
+		padding: 5px 0
+		padding-left: 15px
+		transition: opacity $animation-speed * 5 linear
+		&-last
+			opacity: 1 !important
+			transition: $animation-speed * 5 all
 		&:hover
 			background-color: lighten($secondary, $blackout / 2)
 		&:hover .right__task-transform
@@ -33,9 +43,10 @@
 			opacity: 1
 		&-label
 			display: flex
+			position: relative
 			align-items: center
-			user-select: none
 			cursor: pointer
+			max-width: 80%
 			input:checked + .right__task-checkbox
 				border-color: $contrast-1
 				svg
@@ -50,7 +61,8 @@
 			position: relative
 			top: 2px
 			float: left
-			margin: 0 10px 5px 15px
+			margin: 0 10px 5px 0
+			padding-right: 16px
 			width: 20px
 			height: 20px
 			border: 2px solid $secondary
@@ -79,6 +91,7 @@
 			display: inline
 			font-size: 16px
 			line-height: 16px
+			word-break: break-all
 		&-transform
 			visibility: hidden
 			opacity: 0
@@ -150,8 +163,11 @@
 			padding: 0 5px
 			border-radius: 4px
 			background-color: #fff
-			// box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.1)
+			opacity: 0
 			transition: $animation-speed * 5 all
+			&-active
+				opacity: 1
+			// box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.1)
 			&-input
 				width: 100%
 				min-height: 30px
@@ -173,13 +189,21 @@
 	&__create
 		font-family: $lato
 		width: 415px
+		height: 148px
+		margin-bottom: 20px
 		&-form
 			position: relative
-			display: none
+			// display: none
 			margin-top: 20px
+			transition: $animation-speed all
+			opacity: 0
+			z-index: -1
 			&-active
-				display: block
+				opacity: 1
+				z-index: 1
+				// display: block
 		&-button 
+			position: relative
 			display: flex
 			align-items: center
 			height: 40px
@@ -216,12 +240,15 @@
 			position: absolute
 			height: 2px
 			width: 0
-			margin-top: -2px
+			// margin-top: -2px
 			z-index: 5
 			background-color: $contrast-1
 			transition: width $animation-speed * 3 linear
 
 		&-buttons
+			display: flex
+			justify-content: space-between
+			width: 250px
 			margin-top: 16px
 		&-add
 			width: 145px
